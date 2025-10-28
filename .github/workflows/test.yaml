@@ -6,39 +6,50 @@ jobs:
   test:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # (Это правильно, нужно для публикации)
     steps:
-      # выкачиваем репозиторий
-      - uses: actions/checkout@v5
-      # настраиваем java
-      - uses: actions/setup-java@v5
+      # 1. выкачиваем репозиторий
+      - uses: actions/checkout@v5 # (Это было верно)
+
+      # 2. настраиваем java
+      - uses: actions/setup-java@v5 # (Это было верно)
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
+          distribution: 'zulu'
           java-version: '21'
+
+      # 3. Запускаем Selenoid
       - uses: Xotabu4/selenoid-github-action@v2
+
+      # 4. Даем права
       - run: chmod +x ./gradlew
-      # запуск тестов
+
+      # 5. запуск тестов
       - run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub -Dselenide.browser=chrome
 
-      # скачиваем историю тестов
-      - uses: actions/checkout@v5
+      # 6. скачиваем историю тестов
+      - uses: actions/checkout@v5 # (Это было верно)
         if: always()
         continue-on-error: true
         with:
           ref: gh-pages
           path: gh-pages
-      # генерируем отчет
-      - uses: simple-elf/allure-report-action@master
+
+      # 7. генерируем отчет
+      - uses: simple-elf/allure-report-action@v1.7 # FIXED: Закрепили версию вместо @master (v1.13 тоже доступна)
         if: always()
         with:
           allure_results: build/allure-results
           gh_pages: gh-pages
           allure_report: allure-report
           allure_history: allure-history
-      # публикуем отчет
-      - uses: peaceiris/actions-gh-pages@v2
+
+      # 8. публикуем отчет
+      - uses: peaceiris/actions-gh-pages@v4 # FIXED: Обновлена версия с @v2
         if: always()
-        env:
-          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: allure-history
+        with:
+          # FIXED: Используем новый параметр github_token вместо PERSONAL_TOKEN
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # FIXED: Указана правильная ветка (у вас было PUBLISH_BRANCH в env)
+          publish_branch: gh-pages
+          # FIXED: Указана папка с отчетом, а не с историей
+          publish_dir: allure-report
