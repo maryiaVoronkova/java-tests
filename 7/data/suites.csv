@@ -1,3 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"Test with GitHub description","9815","testExample()","","Tue Oct 28 09:09:58 UTC 2025","passed","Tue Oct 28 09:10:08 UTC 2025","","JavaTests","JavaTests","testExample"
-"Test with GitHub description","5550","testExample2()","","Tue Oct 28 09:10:08 UTC 2025","passed","Tue Oct 28 09:10:14 UTC 2025","","JavaTests","JavaTests","testExample2"
