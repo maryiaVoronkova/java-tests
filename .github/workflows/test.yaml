@@ -14,6 +14,7 @@ jobs:
           distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '21'
       - uses: Xotabu4/selenoid-github-action@v2
+      - run: chmod +x ./gradlew
       # запуск тестов
       - run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub -Dselenide.browser=chrome
 

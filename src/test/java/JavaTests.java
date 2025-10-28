@@ -30,8 +30,8 @@ public class JavaTests {
         });
 
         $(".search-input").click();
-        $(".search-input").sendKeys("allure");
-        $(".search-input").submit();
+        $("#query-builder-test").sendKeys("allure");
+        $("#query-builder-test").submit();
 
         $$x("//*[@data-testid='results-list']//h3").first().click();
     }
@@ -41,8 +41,8 @@ public class JavaTests {
     public void testExample2() {
         open("https://github.com/");
         $(".search-input").click();
-        $(".search-input").sendKeys("allure");
-        $(".search-input").submit();
+        $("#query-builder-test").sendKeys("allure");
+        $("#query-builder-test").submit();
 
         $$x("//*[@data-testid='results-list']//h3").first().click();
     }
