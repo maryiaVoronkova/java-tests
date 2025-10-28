@@ -1,0 +1,16 @@
+name: Test
+
+on:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # выкачиваем репозиторий
+      - uses: actions/checkout@v5
+      # настраиваем java
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '21'
+      # запуск тестов
+      - run: ./gradlew clean test
