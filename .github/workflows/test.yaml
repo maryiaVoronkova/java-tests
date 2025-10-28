@@ -5,6 +5,8 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       # выкачиваем репозиторий
       - uses: actions/checkout@v5
